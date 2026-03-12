@@ -1,6 +1,6 @@
-# 🛡️ Livo-Backup-Sentinel
+# 🛡️ Momoledev-Backup-Sentinel
 
-**Livo-Backup-Sentinel** est une solution de sauvegarde robuste, sécurisée et automatisée conçue pour les développeurs et administrateurs système. Elle permet de protéger vos dossiers locaux et volumes Docker en les chiffrant avec AES-256 avant de les envoyer vers un stockage cloud compatible S3 (AWS, Cloudflare R2, Backblaze, etc.).
+**Momoledev-Backup-Sentinel** est une solution de sauvegarde robuste, sécurisée et automatisée conçue pour les développeurs et administrateurs système. Elle permet de protéger vos dossiers locaux et volumes Docker en les chiffrant avec AES-256 avant de les envoyer vers un stockage cloud compatible S3 (AWS, Cloudflare R2, Backblaze, etc.).
 
 ---
 
@@ -25,7 +25,7 @@ Sur votre serveur (Ubuntu/Debian), installez les dépendances nécessaires :
 sudo apt update && sudo apt install rclone gnupg curl tar -y
 ```
 
-### Configuration du stockage (*Rclone*)
+### Configuration du stockage (_Rclone_)
 
 Lancez la configuration interactive pour lier votre bucket S3&nbsp;:
 
