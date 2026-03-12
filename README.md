@@ -1,6 +1,6 @@
-# 🛡️ Momoledev-Backup-Sentinel
+# 🛡️ Momoledev-Backup-Strategy
 
-**Momoledev-Backup-Sentinel** est une solution de sauvegarde robuste, sécurisée et automatisée conçue pour les développeurs et administrateurs système. Elle permet de protéger vos dossiers locaux et volumes Docker en les chiffrant avec AES-256 avant de les envoyer vers un stockage cloud compatible S3 (AWS, Cloudflare R2, Backblaze, etc.).
+**Momoledev-Backup-Strategy** est une solution de sauvegarde robuste, sécurisée et automatisée conçue pour les développeurs et administrateurs système. Elle permet de protéger vos dossiers locaux et volumes Docker en les chiffrant avec AES-256 avant de les envoyer vers un stockage cloud compatible S3 (AWS, Cloudflare R2, Backblaze, etc.).
 
 ---
 
