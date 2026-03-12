@@ -43,9 +43,9 @@ rclone config
 Créer le dossier de travail&nbsp;:
 
 ```bash
-sudo mkdir -p /opt/livo-backup
-sudo chown $USER:$USER /opt/livo-backup
-cd /opt/livo-backup
+sudo mkdir -p /opt/momoledev-backup
+sudo chown $USER:$USER /opt/momoledev-backup
+cd /opt/momoledev-backup
 ```
 
 ### Fichier d'environnement (.env)
@@ -115,13 +115,13 @@ Ajoutez vos tâches planifiées (exemple pour une exécution nocturne)&nbsp;:
 
 ```bash
 # Sauvegarde de Juridia à 01h00
-00 01 * * * /bin/bash /opt/livo-backup/backup.sh /var/www/juridia >> /var/log/backup_livo.log 2>&1
+00 01 * * * /bin/bash /opt/momoledev-backup/backup.sh /var/www/juridia >> /var/log/backup_livo.log 2>&1
 
 # Sauvegarde de Livo Ride à 02h00
-00 02 * * * /bin/bash /opt/livo-backup/backup.sh livo_ride_db >> /var/log/backup_livo.log 2>&1
+00 02 * * * /bin/bash /opt/momoledev-backup/backup.sh livo_ride_db >> /var/log/backup_livo.log 2>&1
 
 # Sauvegarde de Livo Space à 03h00
-00 03 * * * /bin/bash /opt/livo-backup/backup.sh /var/www/livo-space >> /var/log/backup_livo.log 2>&1
+00 03 * * * /bin/bash /opt/momoledev-backup/backup.sh /var/www/livo-space >> /var/log/backup_livo.log 2>&1
 ```
 
 ---
