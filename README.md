@@ -82,11 +82,11 @@ chmod +x *.sh
 Le script prend un argument unique : le chemin du dossier ou le nom du volume Docker.
 
 ```bash
-# Pour un dossier local (ex: Juridia)
-./backup.sh /var/www/juridia
+# Pour un dossier local (ex: /var/www/projet1)
+./backup.sh /var/www/projet1
 
-# Pour un volume Docker (ex: Livo Ride DB)
-./backup.sh livoride_postgres_data
+# Pour un volume Docker (ex: docker_volume)
+./backup.sh docker_volume
 ```
 
 ### B. Restauration (`restore.sh`)
@@ -94,7 +94,7 @@ Le script prend un argument unique : le chemin du dossier ou le nom du volume Do
 Le script de restauration est interactif&nbsp;:
 
 ```bash
-./restore.sh /var/www/juridia
+./restore.sh /var/www/projet1
 ```
 
 - Il liste les archives disponibles sur le S3 pour ce projet.
@@ -114,14 +114,14 @@ crontab -e
 Ajoutez vos tâches planifiées (exemple pour une exécution nocturne)&nbsp;:
 
 ```bash
-# Sauvegarde de Juridia à 01h00
-00 01 * * * /bin/bash /opt/momoledev-backup/backup.sh /var/www/juridia >> /var/log/backup_livo.log 2>&1
+# Sauvegarde de dossier local /var/www/projet1 à 01h00
+00 01 * * * /bin/bash /opt/momoledev-backup/backup.sh /var/www/projet1 >> /var/log/backup_momoledev.log 2>&1
 
-# Sauvegarde de Livo Ride à 02h00
-00 02 * * * /bin/bash /opt/momoledev-backup/backup.sh livo_ride_db >> /var/log/backup_livo.log 2>&1
+# Sauvegarde de volume Docker docker_volume à 02h00
+00 02 * * * /bin/bash /opt/momoledev-backup/backup.sh docker_volume >> /var/log/backup_momoledev.log 2>&1
 
-# Sauvegarde de Livo Space à 03h00
-00 03 * * * /bin/bash /opt/momoledev-backup/backup.sh /var/www/livo-space >> /var/log/backup_livo.log 2>&1
+# Sauvegarde de fichier local /var/www/documents.xlsx à 03h00
+00 03 * * * /bin/bash /opt/momoledev-backup/backup.sh /var/www/documents.xlsx >> /var/log/backup_momoledev.log 2>&1
 ```
 
 ---
