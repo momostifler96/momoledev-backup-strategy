@@ -46,8 +46,8 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+# Conserver le chemin absolu pour que -d/-f et tar trouvent le bon dossier (ne pas enlever le / initial)
 SOURCE="${1#./}"
-SOURCE="${SOURCE#/}"
 SAFE_NAME=$(echo "$SOURCE" | sed 's/\//_/g' | sed 's/^_//')
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 ARCHIVE_FILE="$BACKUP_DIR/${SAFE_NAME}-$TIMESTAMP.tar.gz"
@@ -61,8 +61,13 @@ echo -e "${INFO} Compression..."
 if [ -d "$SOURCE" ] || [ -f "$SOURCE" ]; then
     tar -czf $ARCHIVE_FILE -C "$(dirname "$SOURCE")" "$(basename "$SOURCE")"
 else
-    # Gestion volume Docker
-    docker run --rm -v $SOURCE:/data -v $BACKUP_DIR:/backup alpine tar -czf /backup/$(basename $ARCHIVE_FILE) -C /data .
+    # Gestion volume Docker (nom sans /)
+    if [[ "$SOURCE" == */* ]]; then
+      echo -e "${RED}${ERROR} Dossier/fichier introuvable : $SOURCE${NC}"
+      echo "  Utilisez un chemin absolu pour un dossier sur l'hôte, ex. : /home/livo-ride-supabase/livo-ride-supabase/volumes/storage"
+      exit 1
+    fi
+    docker run --rm -v "$SOURCE:/data" -v "$BACKUP_DIR:/backup" alpine tar -czf /backup/$(basename $ARCHIVE_FILE) -C /data .
 fi
 
 # 2. Chiffrement
