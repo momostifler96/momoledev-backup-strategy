@@ -51,7 +51,7 @@ else
   LOCAL_FILE="$FILENAME"
   r2_download "${R2_PREFIX}${FILENAME}" "./$LOCAL_FILE" || exit 1
 fi
-RESTORE_DIR="restored-files"
+RESTORE_DIR="data/"
 mkdir -p "$RESTORE_DIR"
 if ! echo "$GPG_PASSPHRASE" | gpg --batch --yes --passphrase-fd 0 --decrypt --output "$RESTORE_DIR/restored.tar.gz" "$LOCAL_FILE"; then
   echo -e "\033[0;31m❌ Échec du déchiffrement (vérifiez GPG_PASSPHRASE dans .env).\033[0m"
