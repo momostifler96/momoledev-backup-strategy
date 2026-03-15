@@ -1,6 +1,6 @@
 # 🛡️ Momoledev-Backup-Strategy
 
-**Momoledev-Backup-Strategy** est une solution de sauvegarde robuste, sécurisée et automatisée conçue pour les développeurs et administrateurs système. Elle permet de protéger vos dossiers locaux et volumes Docker en les chiffrant avec AES-256 avant de les envoyer vers un stockage cloud compatible S3 (AWS, Cloudflare R2, Backblaze, etc.).
+**Momoledev-Backup-Strategy** est une solution de sauvegarde robuste, sécurisée et automatisée conçue pour les développeurs et administrateurs système. Elle permet de protéger vos dossiers locaux et volumes Docker en les chiffrant avec AES-256 avant de les envoyer vers **Cloudflare R2** (API S3 compatible, via curl).
 
 ---
 
@@ -8,7 +8,7 @@
 
 - 📦 **Multi-Source** : Supporte les dossiers physiques, les fichiers isolés et les volumes Docker.
 - 🔐 **Sécurité Totale** : Chiffrement symétrique GPG (AES-256) avant l'envoi.
-- ☁️ **Cloud Agnostique** : Utilise Rclone pour supporter n'importe quel fournisseur S3.
+- ☁️ **Cloudflare R2** : Transfert via curl (API S3 compatible) sans dépendance rclone.
 - 🧹 **Nettoyage Auto** : Suppression automatique des anciens backups (rétention configurable).
 - 📱 **Monitoring** : Alertes instantanées via Telegram (succès / échec).
 - 🎨 **Interface Terminal** : Sortie colorée avec icônes pour une lecture facile des logs.
@@ -22,18 +22,7 @@
 Sur votre serveur (Ubuntu/Debian), installez les dépendances nécessaires :
 
 ```bash
-sudo apt update && sudo apt install rclone gnupg curl tar -y
-```
-
-### Configuration du stockage (_Rclone_)
-
-Lancez la configuration interactive pour lier votre bucket S3&nbsp;:
-
-```bash
-rclone config
-# 1. Choisissez 'n' (New remote)
-# 2. Nommez-le 'my_s3_provider' (ou le nom de votre choix)
-# 3. Sélectionnez 's3' et suivez les instructions propres à votre fournisseur (R2, AWS, etc.)
+sudo apt update && sudo apt install gnupg curl tar -y
 ```
 
 ---
@@ -58,11 +47,13 @@ TELEGRAM_TOKEN="votre_bot_token"
 TELEGRAM_CHAT_ID="votre_chat_id"
 
 # --- CHIFFREMENT ---
-GPG_PASSPHRASE="votre_passphrase_ultra_securisee"
+GPG_PASSPHRASE=votre_passphrase_ultra_securisee # N'oubliez ecrivez directement la passphrase sans les "" ou '' exemple: GPG_PASSPHRASE=votre_passphrase_ultra_securisee et non GPG_PASSPHRASE="votre_passphrase_ultra_securisee" ou GPG_PASSPHRASE='votre_passphrase_ultra_securisee'
 
-# --- STOCKAGE S3 ---
-# S3_REMOTE doit être : nom_du_remote_rclone:nom_du_bucket
-S3_REMOTE="my_s3_provider:backup-bucket"
+# --- STOCKAGE (Cloudflare R2) ---
+R2_ACCOUNT_ID="votre_account_id_cloudflare"
+R2_ACCESS_KEY_ID="votre_access_key"
+R2_SECRET_ACCESS_KEY="votre_secret_key"
+R2_BUCKET="nom_du_bucket"
 RETENTION_DAYS=7
 ```
 
@@ -97,7 +88,7 @@ Le script de restauration est interactif&nbsp;:
 ./restore.sh /var/www/projet1
 ```
 
-- Il liste les archives disponibles sur le S3 pour ce projet.
+- Il liste les archives disponibles sur R2 pour ce projet.
 - Demande de copier/coller le nom du fichier.
 - Télécharge, déchiffre et extrait le contenu dans un dossier local.
 
