@@ -64,7 +64,7 @@ else
     # Gestion volume Docker (nom sans /)
     if [[ "$SOURCE" == */* ]]; then
       echo -e "${RED}${ERROR} Dossier/fichier introuvable : $SOURCE${NC}"
-      echo "  Utilisez un chemin absolu pour un dossier sur l'hôte, ex. : /home/livo-ride-supabase/livo-ride-supabase/volumes/storage"
+      echo "  Utilisez un chemin absolu pour un dossier sur l'hôte, ex. : /home/username/supabase-project/volumes/storage"
       exit 1
     fi
     docker run --rm -v "$SOURCE:/data" -v "$BACKUP_DIR:/backup" alpine tar -czf /backup/$(basename $ARCHIVE_FILE) -C /data .
